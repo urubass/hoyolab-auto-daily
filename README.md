@@ -12,6 +12,7 @@ Repository version:
 - [Usage](#usage)
 - [Multiple Accounts](#multiple-accounts)
 - [Discord Webhook](#discord-webhook)
+- [Telegram](#telegram)
 - [FAQ](#faq)
   - [Is this safe?](#is-this-safe)
   - [How to update my (fork) repository version?](#how-to-update-my-fork-repository-version)
@@ -22,7 +23,7 @@ Repository version:
 
 You have to check in manually first to get your cookie, follow these steps (click to open screenshot):
 
-1. Open [HoYoLAB](https://www.hoyolab.com/home) and login if you haven't (obviously)
+1. Open [HoYoLAB](https://www.hoyolab.com/home) and login if you haven't
 
 2. <details>
    <summary>Open dev tool (<kbd>Ctrl+Shift+I</kbd> or right click > Inspect)</summary>
@@ -51,7 +52,7 @@ You have to check in manually first to get your cookie, follow these steps (clic
 7. <details open>
    <summary>Write <code>ltuid_v2=PASTE_ltuid_v2; ltoken_v2=PASTE_ltoken_v2</code> like the screenshot.</summary>
 
-   I write the line on the browser url to make it easier. Pay attention, use semicolon (;) and not colon (:)
+   Writing the line in the browser URL bar makes it easier. Pay attention: use a semicolon (;), not a colon (:)
 
    It should look like this: `ltuid_v2=249806310; ltoken_v2=v2_CAISDG...`
 
@@ -149,6 +150,24 @@ You may use Discord webhook to send notifications to your channel!
    </details>
 
 6. You may trigger the check in manually and see if the messages got sent
+
+## Telegram
+
+You may use a Telegram bot to send notifications to yourself or a group.
+
+1. Open [@BotFather](https://t.me/BotFather) in Telegram, send `/newbot`, and follow the
+   prompts. It gives you a **bot token** like `123456789:AAE...`
+2. Start a chat with your new bot and send it any message (the bot can't message you first).
+3. Get your **chat ID**: open
+   `https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` in your browser (replace
+   `<YOUR_TOKEN>`) and copy the number in `"chat":{"id":...}`. For a group, add the bot
+   to the group first, then read the group's negative chat ID from the same URL.
+4. Add two repository *secrets* (Settings > Secrets and variables > Actions):
+   - `TELEGRAM_TOKEN` with the bot token
+   - `TELEGRAM_CHAT_ID` with the chat ID
+5. Trigger the check in manually and see if the message arrives.
+
+Discord and Telegram are independent — set up either, both, or neither.
 
 ## FAQ
 
