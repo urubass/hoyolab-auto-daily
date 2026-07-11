@@ -1,9 +1,6 @@
 name: Daily check in
 
 on:
-  push:
-    branches:
-      - master
   schedule:
     # 18:01 in Europe/Prague:
     # 16:01 UTC during summer time, 17:01 UTC during winter time.
@@ -23,7 +20,7 @@ jobs:
         id: prague-time
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "push" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           elif [[ "${{ github.event.schedule }}" == "1 16 * * *" && "$(TZ=Europe/Prague date +%z)" == "+0200" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
