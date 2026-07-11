@@ -2,10 +2,8 @@ name: Daily check in
 
 on:
   schedule:
-    # 18:01 in Europe/Prague:
-    # 16:01 UTC during summer time, 17:01 UTC during winter time.
+    # 00:01 UTC+8: 18:01 Czech summer time, 17:01 Czech winter time.
     - cron: "1 16 * * *"
-    - cron: "1 17 * * *"
   workflow_dispatch:
 
 permissions: {}
@@ -20,15 +18,7 @@ jobs:
         id: prague-time
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.schedule }}" == "1 16 * * *" && "$(TZ=Europe/Prague date +%z)" == "+0200" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.schedule }}" == "1 17 * * *" && "$(TZ=Europe/Prague date +%z)" == "+0100" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
+          echo "run=true" >> "$GITHUB_OUTPUT"
 
       - name: Clone Repo
         if: steps.prague-time.outputs.run == 'true'
