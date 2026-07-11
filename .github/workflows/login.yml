@@ -1,6 +1,9 @@
 name: Daily check in
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     # 18:01 in Europe/Prague:
     # 16:01 UTC during summer time, 17:01 UTC during winter time.
